@@ -1,13 +1,28 @@
 {
   "name": "kita-webdriver",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Promise based WebDriver for browser automation.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "keywords": [
+    "kita",
+    "webdriver",
+    "automation"
+  ],
+  "homepage": "https://github.com/ClownChu/kita-webdriver",
+  "bugs": {
+    "url": "https://github.com/ClownChu/kita-webdriver/issues",
+    "email": "vitordesouza@hotmail.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ClownChu/kita-webdriver.git"
+  },
+  "author": "Vitor de Souza <vitordesouza@hotmail.com.br> (https://www.linkedin.com/in/vitor-de-souza-software/)",
   "license": "AGPL-3.0",
+  "private": false,
   "dependencies": {
     "axios": "^0.24.0",
     "child_process": "^1.0.2",

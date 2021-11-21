@@ -8,10 +8,12 @@ Promise based WebDriver for browser automation.
 ### This is a component of [Kita](#about-kita)
 
 ## Road map
-```bash
-- [x] Create base structure for WebDriver package #v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
+> Not in order of priority
+
+```json
+- [ ] Publish in npm
 - [ ] Write README.md
-- [ ] [TODOs in code](https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A)
+- [ ] TODOs in code //https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A
 - [ ] Window manipulation methods
 - [ ] Convert to TypeScript
 - [ ] Debug mode
@@ -26,7 +28,11 @@ Promise based WebDriver for browser automation.
 - [ ] Windows API support
 ```
 
-> Not in order of priority
+### Completed
+```json
+- [x] Create base structure for WebDriver package //v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
+```
+
 
 ## About Kita
 `Kita` is a Personal assistant developed by [Vitor de Souza](https://www.linkedin.com/in/vitor-de-souza-software/) ([ClownChu](https://github.com/ClownChu)). Currently coded in [.NET](https://dotnet.microsoft.com/), [Go](https://golang.org/), and [Node.js](https://nodejs.org/). This personal assistant helps with daily tasks, such as: controlling computers, lights, network, schedules, repetitive tasks, among other features.
