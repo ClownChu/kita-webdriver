@@ -7,6 +7,10 @@ Promise based WebDriver for browser automation.
 ## *** Not recommended for production use yet ***
 ### This is a component of [Kita](#about-kita)
 
+### npm i kita-webdriver NOT READY
+24 hours to republish a package in NPM after deleting it.
+Will publish tomorrow afternoon (11/22) 
+
 ## Road map
 > Not in order of priority
 
