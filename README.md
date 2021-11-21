@@ -7,21 +7,24 @@ Promise based WebDriver for browser automation.
 ## *** Not recommended for production use yet ***
 ### This is a component of [Kita](#about-kita)
 
-## TODOs
-* Write README.md
-* [In code](https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A)
-* Window manipulation methods
-* Convert to TypeScript
-* Debug mode
-* Logging
-* Create tests
-* More errors
-* JavaScript mouse/keyboard simulator
-* HTML element object interface
-* Add Chrominium support
-* Add FireFox support
-* Add IE support
-* Windows API support
+## Road map
+```bash
+- [x] Create base structure for WebDriver package #v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
+- [ ] Write README.md
+- [ ] [TODOs in code](https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A)
+- [ ] Window manipulation methods
+- [ ] Convert to TypeScript
+- [ ] Debug mode
+- [ ] Logging
+- [ ] Create tests
+- [ ] More errors
+- [ ] JavaScript mouse/keyboard simulator
+- [ ] HTML element object interface
+- [ ] Add Chrominium support
+- [ ] Add FireFox support
+- [ ] Add IE support
+- [ ] Windows API support
+```
 
 > Not in order of priority
 
