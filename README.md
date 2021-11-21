@@ -11,12 +11,12 @@ Promise based WebDriver for browser automation.
 24 hours to republish a package in NPM after deleting it.
 Will publish tomorrow afternoon (11/22) 
 
-## Road map
+## TODOs
 > Not in order of priority
 
-```json
+```objc
 - [ ] Write README.md
-- [ ] TODOs in code //https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A
+- [ ] Add documentation
 - [ ] Window manipulation methods
 - [ ] Convert to TypeScript
 - [ ] Debug mode
@@ -29,12 +29,13 @@ Will publish tomorrow afternoon (11/22)
 - [ ] Add FireFox support
 - [ ] Add IE support
 - [ ] Windows API support
+- [ ] TODOs in code // https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A
 ```
 
 ### Completed
-```json
-- [x] Publish in npm //v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2
-- [x] Create base structure for WebDriver package //v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
+```objc
+- [x] Publish in npm // v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2
+- [x] Create base structure for WebDriver package // v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
 ```
 
 
