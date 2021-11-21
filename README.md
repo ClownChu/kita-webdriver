@@ -11,7 +11,6 @@ Promise based WebDriver for browser automation.
 > Not in order of priority
 
 ```json
-- [ ] Publish in npm
 - [ ] Write README.md
 - [ ] TODOs in code //https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A
 - [ ] Window manipulation methods
@@ -30,6 +29,7 @@ Promise based WebDriver for browser automation.
 
 ### Completed
 ```json
+- [x] Publish in npm //v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2
 - [x] Create base structure for WebDriver package //v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
 ```
 
