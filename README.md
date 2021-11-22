@@ -64,24 +64,24 @@ npm i kita-webdriver
     <thead>
         <tr>
             <th>
-                <p align="center" style="margin-bottom: 0;">
+                <figure>
                     <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />
-                </p>
+                </figure>
             </th>
             <th>
-                <p align="center" style="margin-bottom: 0;">
+                <figure>
                     <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />
-                </p>
+                </figure>
             </th>
             <th>
-                <p align="center" style="margin-bottom: 0;">
+                <figure>
                     <img src="https://raw.githubusercontent.com/alrra/browser-logos/4.1.0/internet-explorer/internet-explorer_48x48.png" alt="Edge" width="24px" height="24px" />
-                </p>
+                </figure>
             </th>
             <th>
-                <p align="center" style="margin-bottom: 0;">
+                <figure>
                     <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Chrome" width="24px" height="24px" />
-                </p>
+                </figure>
             </th>
         </tr>
         <tr>
