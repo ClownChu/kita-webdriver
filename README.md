@@ -1,26 +1,27 @@
-# Kita WebDriver - Promise based WebDriver
-## JavaScript + Node.js version
+<h1 align="center">Kita WebDriver - Promise based WebDriver</h1>
+<h2 align="center">JavaScript + Node.js</h2>
 
-Promise based WebDriver for browser automation.
-> This WebDriver should work for any browser version, there should be no need for versioned executables.
-
-<hr>
-
-### This is a component of [Kita](#about-kita)
-## *** Not recommended for production use yet ***
+<p align="right"><sup>* README.md is still being written</sup></p>
+<p align="center">Promise based WebDriver for browser automation.</p>
+<p align="center">The objective of this WebDriver is to work in any browser, independent of the version.</p>
 
 <hr>
 
-## Get with npm
-`kita-webdriver` ([npmjs.com](https://www.npmjs.com/package/kita-webdriver))
+<h3 align="center">This is a component of <a href=#about-kita>Kita</a></h3>
+
+<hr>
+
+<h2 id="get-in-npm" align="center">Get in <a href="https://www.npmjs.com/package/kita-webdriver" target="_blank">npm</a></h2>
+
 ```bash
 npm i kita-webdriver
 ```
 
 <hr>
 
-## TODOs
-> Not in order of priority
+<h2 id="todos" align="center">TODOs</h2>
+
+<h3 id="pending">Pending</h3>
 
 ```objc
 - [ ] Write README.md
@@ -40,7 +41,10 @@ npm i kita-webdriver
 - [ ] TODOs in code // https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A
 ```
 
-### Completed
+<p align="right"><sup>* Not in order of priority</sup></p>
+
+<h3 id="completed">Completed</h3>
+
 ```objc
 - [x] Publish in npm // v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2
 - [x] Create base structure for WebDriver package // v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
@@ -48,17 +52,64 @@ npm i kita-webdriver
 
 <hr>
 
-## About Kita
-`Kita` is a Personal assistant developed by [Vitor de Souza](https://www.linkedin.com/in/vitor-de-souza-software/) ([ClownChu](https://github.com/ClownChu)). Currently coded in [.NET](https://dotnet.microsoft.com/), [Go](https://golang.org/), and [Node.js](https://nodejs.org/). This personal assistant helps with daily tasks, such as: controlling computers, lights, network, schedules, repetitive tasks, among other features.
+<h2 align="center" id="about-kita">About Kita</h2>
+<div>
+    <code>Kita</code> is a personal assistant developed by <a href="https://www.linkedin.com/in/vitor-de-souza-software"  target="_blank">Vitor de Souza</a> (<a href="htps://github.com/ClownChu" target="_blank">ClownChu</a>). Currently coded in <a href="https://dotnet.microsoft.com" target="_blank">.NET</a>, <a href="https://golang.org" target="_blank">Go</a>, and <a href="https://nodejs.org" target="_blank">Node.js</a>. This personal assistant helps with daily tasks, such as: controlling computers, lights, network, schedules, repetitive tasks, among other features.
+</div>
 
 <hr>
 
-## Supported browsers
-| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" /><br/>Microsoft Edge | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /><br/>Google Chrome | <img src="https://raw.githubusercontent.com/alrra/browser-logos/4.1.0/internet-explorer/internet-explorer_48x48.png" alt="Edge" width="24px" height="24px" /><br/>Internet Explorer | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Chrome" width="24px" height="24px" /><br/>Mozilla Firefox | 
-| --------- | --------- | --------- | --------- |
-| v79+ | v76+ | Not supported yet | Not supported yet |
+<h2 align="center" id="supported-browser">Supported browsers</h2>
+<table align="center">
+    <thead>
+        <tr>
+            <th>
+                <p align="center">
+                    <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />
+                </p>
+            </th>
+            <th>
+                <p align="center">
+                    <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />
+                </p>
+            </th>
+            <th>
+                <p align="center">
+                    <img src="https://raw.githubusercontent.com/alrra/browser-logos/4.1.0/internet-explorer/internet-explorer_48x48.png" alt="Edge" width="24px" height="24px" />
+                </p>
+            </th>
+            <th>
+                <p align="center">
+                    <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Chrome" width="24px" height="24px" />
+                </p>
+            </th>
+        </tr>
+        <tr>
+            <th align="center">Microsoft Edge</th>
+            <th align="center">Google Chrome</th>
+            <th align="center">Internet Explorer</th>
+            <th align="center">Mozilla Firefox</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center">v79+</td>
+            <td align="center">v76+</td>
+            <td align="center">Not supported yet</td>
+            <td align="center">Not supported yet</td>
+        </tr>
+    </tbody>
+</table>
 
 <hr>
 
-## License
-Kita WebDriver source code is made available under the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.en.html) license. [Read more](https://choosealicense.com/licenses/agpl-3.0/)
+<div align="center">
+    <h3>*** Not recommended for production use yet ***</h3>
+</div>
+
+<hr>
+
+<h2 align="center" id="license">License</h2>
+<div align="center">
+    <a href="https://github.com/ClownChu/kita-webdriver" target="_blank">Kita WebDriver source code</a> is made available under the <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank">GNU Affero General Public License v3.0</a> license. (<a href="https://choosealicense.com/licenses/agpl-3.0/" target="_blank">Read more</a>)
+</div>
