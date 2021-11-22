@@ -1,7 +1,8 @@
 <h1 align="center">Kita WebDriver - Promise based WebDriver</h1>
-<h2 align="center">JavaScript + Node.js</h2>
+<h3 align="center">JavaScript + Node.js</h3>
 
 <p align="right"><sup>* README.md is still being written</sup></p>
+
 <p align="center">Promise based WebDriver for browser automation.</p>
 <p align="center">The objective of this WebDriver is to work in any browser, independent of the version.</p>
 
