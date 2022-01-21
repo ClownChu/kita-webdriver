@@ -47,6 +47,7 @@ npm i kita-webdriver
 <h3 id="completed">Completed</h3>
 
 ```objc
+- [x] Publish v0.0.3 // v0.0.3 - https://github.com/ClownChu/kita-webdriver/compare/0.0.2...0.0.3
 - [x] Publish in npm // v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2
 - [x] Create base structure for WebDriver package // v0.0.1 - https://github.com/ClownChu/kita-webdriver/commits/0.0.1
 ```
