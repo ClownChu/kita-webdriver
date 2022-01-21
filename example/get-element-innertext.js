@@ -7,8 +7,9 @@ const webdriver = Kita.WebDriver.new('chrome')
 webdriver.start().then(() => {
     webdriver.browserInstance.navigate('https://www.google.com').then((browserInstance) => {
         SystemHelper.sleep(1000).then(() => {
-            browserInstance.eval(`document.querySelector('body').innerText`).then((response) => {
+            browserInstance.eval(`return document.querySelector('body').innerText`).then((response) => {
                 console.log(response.value)
+                browserInstance.close()
             })
         })
     })
