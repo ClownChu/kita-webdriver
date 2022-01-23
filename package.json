@@ -1,6 +1,6 @@
 {
   "name": "kita-webdriver",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Promise based WebDriver for browser automation.",
   "main": "index.js",
   "scripts": {
