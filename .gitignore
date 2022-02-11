@@ -1,5 +1,9 @@
-.vscode/
+**/.vscode/
+**/node_modules/
+
 *.code-workspace
 .eslintcache
-node_modules/
-yarn*.log
+
+dist/
+
+*.tgz

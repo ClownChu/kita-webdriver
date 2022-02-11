@@ -1,0 +1,9 @@
+.vscode/
+.git/
+
+node_modules/
+*.code-workspace
+*.eslint*
+tsconfig.json
+
+src/

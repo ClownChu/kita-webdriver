@@ -28,7 +28,6 @@ npm i kita-webdriver
 - [ ] Write README.md
 - [ ] Add documentation
 - [ ] Window manipulation methods
-- [ ] Convert to TypeScript
 - [ ] Debug mode
 - [ ] Logging
 - [ ] Create tests
@@ -39,6 +38,7 @@ npm i kita-webdriver
 - [ ] Add FireFox support
 - [ ] Add IE support
 - [ ] Windows API support
+- [ ] Finish converting project to TypeScript (remove things done for JS)
 - [ ] TODOs in code // https://github.com/ClownChu/kita-webdriver/search?q=TODO+%3A
 ```
 
@@ -47,6 +47,7 @@ npm i kita-webdriver
 <h3 id="completed">Completed</h3>
 
 ```objc
+- [x] Convert to TypeScript // v0.0.5 https://github.com/ClownChu/kita-webdriver/compare/0.0.4...0.0.5
 - [x] Publish v0.0.4 // v0.0.4 - https://github.com/ClownChu/kita-webdriver/compare/0.0.3...0.0.4
 - [x] Publish v0.0.3 // v0.0.3 - https://github.com/ClownChu/kita-webdriver/compare/0.0.2...0.0.3
 - [x] Publish in npm // v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2
