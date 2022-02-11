@@ -1,4 +1,4 @@
-import { CapabilitiesCollection, CapabilitiesValue } from 'types';
+import { CapabilitiesCollection, CapabilitiesValue } from '../types';
 import { BrowserAlias } from './definitions/browser/BrowserAlias.definition';
 import { BrowserDisplayName } from './definitions/browser/BrowserDisplayName.definition';
 import { SupportedBrowsers } from './definitions/kita/SupportedBrowsers.definition';

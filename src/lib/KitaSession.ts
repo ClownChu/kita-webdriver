@@ -1,4 +1,4 @@
-import { KitaSessionInformation } from "types";
+import { KitaSessionInformation } from '../types';
 
 export class KitaSession {
     protected information: KitaSessionInformation;

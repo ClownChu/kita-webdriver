@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "prebuild": "npx rimraf dist && npx eslint .",
-    "build": "npx tsc && npx tscp",
+    "build": "npx tsc && npx tscp && npx copyfiles -u 1 ./src/**/*.d.ts dist",
     "postbuild": "npx tsconfig-replace-paths -p tsconfig.json -s ./src -o ./dist",
     "lint:fix": "npx eslint . --fix",
     "prepublish": "npm run build"

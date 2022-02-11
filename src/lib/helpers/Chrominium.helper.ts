@@ -9,7 +9,7 @@ import { KitaBrowser } from '../KitaBrowser';
 import { SupportedCapabilities } from '../definitions/capability/SupportedCapabilities.defintion';
 import { SupportedBrowsers } from '../definitions/kita/SupportedBrowsers.definition';
 import { NavigationFailed } from '../types/error/NavigationFailed.type';
-import { DevTools, KitaSessionsCollection } from 'types';
+import { DevTools, KitaSessionsCollection } from '../../types';
 
 
 /**
