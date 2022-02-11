@@ -1,6 +1,6 @@
 {
   "name": "kita-webdriver",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Promise based WebDriver for browser automation.",
   "main": "./dust/index.js",
   "types": "./dust/index.d.ts",

@@ -47,7 +47,7 @@ npm i kita-webdriver
 <h3 id="completed">Completed</h3>
 
 ```objc
-- [x] Convert to TypeScript // v0.0.5 https://github.com/ClownChu/kita-webdriver/compare/0.0.4...0.0.5
+- [x] Convert to TypeScript // v0.0.5 https://github.com/ClownChu/kita-webdriver/compare/0.0.5...0.0.6
 - [x] Publish v0.0.4 // v0.0.4 - https://github.com/ClownChu/kita-webdriver/compare/0.0.3...0.0.4
 - [x] Publish v0.0.3 // v0.0.3 - https://github.com/ClownChu/kita-webdriver/compare/0.0.2...0.0.3
 - [x] Publish in npm // v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2
