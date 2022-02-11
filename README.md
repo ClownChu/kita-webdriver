@@ -20,6 +20,15 @@ npm i kita-webdriver
 
 <hr>
 
+<h2 id="typescript" align="center">TypeScript</h2>
+
+To build run:
+```bash
+npm run build
+```
+
+<hr>
+
 <h2 id="todos" align="center">TODOs</h2>
 
 <h3 id="pending">Pending</h3>
@@ -47,7 +56,8 @@ npm i kita-webdriver
 <h3 id="completed">Completed</h3>
 
 ```objc
-- [x] Convert to TypeScript // v0.0.5 https://github.com/ClownChu/kita-webdriver/compare/0.0.5...0.0.6
+- [x] Release v0.0.7// v0.0.7 https://github.com/ClownChu/kita-webdriver/compare/0.0.6...0.0.7
+- [x] Convert to TypeScript // v0.0.6 https://github.com/ClownChu/kita-webdriver/compare/0.0.5...0.0.6
 - [x] Publish v0.0.4 // v0.0.4 - https://github.com/ClownChu/kita-webdriver/compare/0.0.3...0.0.4
 - [x] Publish v0.0.3 // v0.0.3 - https://github.com/ClownChu/kita-webdriver/compare/0.0.2...0.0.3
 - [x] Publish in npm // v0.0.2 - https://github.com/ClownChu/kita-webdriver/compare/0.0.1...0.0.2

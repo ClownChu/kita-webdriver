@@ -1,9 +1,9 @@
 {
   "name": "kita-webdriver",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Promise based WebDriver for browser automation.",
-  "main": "./dust/index.js",
-  "types": "./dust/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "prebuild": "npx rimraf dist && npx eslint .",
     "build": "npx tsc && npx tscp",
