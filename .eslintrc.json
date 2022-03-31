@@ -38,9 +38,10 @@
         "@typescript-eslint/no-this-alias": [
             "error",
             {
-              "allowDestructuring": false,
-              "allowedNames": ["self"]
+                "allowDestructuring": false,
+                "allowedNames": ["self"]
             }
-          ]
+        ],
+        "@typescript-eslint/no-namespace": "off"
     }
 }

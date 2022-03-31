@@ -57,7 +57,7 @@ export namespace DevTools.Runtime {
             type: string,
             subtype?: string,
             className?: string,
-            value?: any,
+            value?: unknown,
             unserializableValue?: UnserializableValue,
             description?: string,
             objectId?: RemoteObjectId,

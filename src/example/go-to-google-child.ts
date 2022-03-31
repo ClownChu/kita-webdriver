@@ -1,6 +1,6 @@
-import Kita from './..';
+import { KitaWebDriver } from './..';
 
-Kita.WebDriver.new(`chrome`).then((webdriver) => {
+KitaWebDriver.new(`edge`).then((webdriver) => {
     webdriver.BrowserInstance?.navigate(`https://www.google.com`).then((browserInstance) => {
         console.log(browserInstance);
         browserInstance.close();

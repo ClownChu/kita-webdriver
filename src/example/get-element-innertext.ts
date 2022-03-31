@@ -1,7 +1,7 @@
 import { SystemHelper } from '../lib/helpers/System.helper';
-import Kita from './..';
+import { KitaWebDriver } from './..';
 
-Kita.WebDriver.new(`chrome`).then((webdriver) => {
+KitaWebDriver.new(`chrome`).then((webdriver) => {
     webdriver.BrowserInstance?.navigate(`https://www.google.com`).then((browserInstance) => {
         SystemHelper.sleep(1000).then(() => {
             browserInstance.eval(`return document.querySelector('body').innerText`).then((response) => {

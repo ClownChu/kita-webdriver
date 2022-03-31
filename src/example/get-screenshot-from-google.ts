@@ -1,6 +1,6 @@
-import Kita from './..';
+import { KitaWebDriver } from './..';
 
-Kita.WebDriver.new(`chrome`).then((webdriver) => {
+KitaWebDriver.new(`chrome`).then((webdriver) => {
     webdriver.BrowserInstance?.navigate(`https://www.google.com`).then((browserInstance) => {
         browserInstance.captureScreenshot().then((base64String) => {
             browserInstance.navigate(`data:image/jpeg;base64,${base64String}`).then((browserInstance) => {

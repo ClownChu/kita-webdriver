@@ -1,6 +1,6 @@
-import Kita from './..';
+import { KitaWebDriver } from './..';
 
-Kita.WebDriver.new(`chrome`).then((webdriver) => {
+KitaWebDriver.new(`chrome`).then((webdriver) => {
     console.log(webdriver);
     webdriver.BrowserInstance?.close().then(() => {
         console.log(`closed`);
