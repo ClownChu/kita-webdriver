@@ -56,6 +56,7 @@ npm run build
 <h3 id="completed">Completed</h3>
 
 ```objc
+- [x] Release v0.0.9// v0.0.9 https://github.com/ClownChu/kita-webdriver/compare/0.0.8...0.0.9
 - [x] Release v0.0.8// v0.0.8 https://github.com/ClownChu/kita-webdriver/compare/0.0.7...0.0.8
 - [x] Release v0.0.7// v0.0.7 https://github.com/ClownChu/kita-webdriver/compare/0.0.6...0.0.7
 - [x] Convert to TypeScript // v0.0.6 https://github.com/ClownChu/kita-webdriver/compare/0.0.5...0.0.6
