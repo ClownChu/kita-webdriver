@@ -1,17 +1,16 @@
 import { KitaWebDriver } from './..';
 
-KitaWebDriver.new(`chrome`).then((webdriver) => {
-    webdriver.BrowserInstance?.navigate(`https://www.google.com`).then((browserInstance) => {
-        browserInstance.captureScreenshot().then((base64String) => {
-            browserInstance.navigate(`data:image/jpeg;base64,${base64String}`).then((browserInstance) => {
-                new Promise((resolve) => {
-                    setTimeout(resolve, 5000);
-                }).then(() => {
-                    browserInstance.close();
-                });
-            });
-        }); 
+(async () => {
+    const webdriver = await KitaWebDriver.new(`chrome`);
+    const browserInstance = webdriver.BrowserInstance;
+    await browserInstance?.navigate(`https://www.google.com`);
+    const base64String = await browserInstance?.captureScreenshot();
+    await browserInstance?.navigate(`data:image/jpeg;base64,${base64String}`);
+
+    await new Promise((resolve) => {
+        setTimeout(resolve, 5000);
     });
-}, (err) => {
-    console.error(err);
+    await browserInstance?.close();
+})().catch(err => {
+    console.log(JSON.stringify(err));
 });

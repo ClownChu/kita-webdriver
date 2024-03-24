@@ -20,7 +20,6 @@ export class KitaWebDriver {
     static new(browser: string) {
         const webDriver = new KitaWebDriver();
         const capabilities = KitaCapabilities.for(browser);
-
         return webDriver.start(capabilities);
     }
 
@@ -31,15 +30,16 @@ export class KitaWebDriver {
      * `reject` with Errors
      */
     start(capabilities: KitaCapabilities): Promise<KitaWebDriver> {  
-        const self = this;
-
         return new Promise((resolve, reject) => {
-            WebDriverHelper.newKitaBrowserInstance(capabilities).then((instance) => {
-                this.browserInstance = instance;
-                resolve(self);
-            }, (err) => {
-                reject(err);
-            });
+            (async () => {
+                try {
+                    const instance = await WebDriverHelper.newKitaBrowserInstance(capabilities);
+                    this.browserInstance = instance;
+                    resolve(this);
+                } catch (err) {
+                    reject(err);
+                }
+            })();
         });
     }
 }

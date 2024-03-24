@@ -7,7 +7,7 @@ import { KitaWebDriver } from './..';
     const browserInstance = webdriver.BrowserInstance as GoogleChromeBrowser;
     await browserInstance.navigate(`https://www.google.com`);
     await SystemHelper.sleep(1000);
-    const response = await browserInstance?.eval(`return document.querySelector('body').innerText`);
+    const response = await browserInstance?.eval(`return document.querySelector('body')`);
     
     if (response === undefined) {
         throw new Error(`Failed to get element inner text`);

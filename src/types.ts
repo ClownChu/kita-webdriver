@@ -37,15 +37,29 @@ export namespace DevTools {
         |   DevTools.Page.CaptureScreenshot.Result
         |   DevTools.Runtime.Evaluate.Result;
     
+    export type ErrorParams = {
+        reason: string
+    }
+    export type Error = {
+        method: string,
+        params: ErrorParams
+    }
+
     export type PayloadResult = {
         id: number,
-        result: WsResult
+        error?: Error,
+        result?: WsResult
     };
 }
 
 export namespace DevTools.Browser {
     export namespace Common {
         
+    }
+}
+
+export namespace DevTools.Network {
+    export namespace Common {
     }
 }
 
@@ -141,7 +155,7 @@ export namespace DevTools.Runtime {
             uniqueContextId?: string,
         }
         export type Result = {
-            result: Common.RemoteObject,
+            result?: Common.RemoteObject,
             exceptionDetails?: Common.ExceptionDetails,
         }
     }

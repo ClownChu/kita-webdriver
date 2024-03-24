@@ -1,10 +1,10 @@
 import { KitaWebDriver } from './..';
 
-KitaWebDriver.new(`chrome`).then((webdriver) => {
-    console.log(webdriver);
-    webdriver.BrowserInstance?.close().then(() => {
-        console.log(`closed`);
-    });
-}, (err) => {
-    console.error(err);
+(async () => {
+    const webdriver = await KitaWebDriver.new(`edge`);
+    const browserInstance = webdriver.BrowserInstance;
+    await browserInstance?.close();
+    console.log(`closed`);
+})().catch(err => {
+    console.log(JSON.stringify(err));
 });

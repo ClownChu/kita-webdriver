@@ -3,13 +3,14 @@ import axios from 'axios';
 
 import { KitaSession } from '../KitaSession';
 import { SystemHelper } from '../helpers/System.helper';
-import { WebSocketHelper } from '../helpers/WebSocket.helper';
 import { KitaCapabilities } from '../KitaCapabilities';
 import { KitaBrowser } from '../KitaBrowser';
 import { SupportedCapabilities } from '../definitions/capability/SupportedCapabilities.defintion';
 import { SupportedBrowsers } from '../definitions/kita/SupportedBrowsers.definition';
 import { NavigationFailed } from '../types/error/NavigationFailed.type';
 import { DevTools, KitaSessionsCollection } from '../../types';
+import Protocol from 'devtools-protocol';
+import { ToolsHelper } from './Tools.helper';
 
 
 /**
@@ -24,22 +25,22 @@ export class ChrominiumHelper {
      * `reject` with Errors
      */
     static new(capabilities: KitaCapabilities): Promise<KitaSession> {
-        const launchOptions = ChrominiumHelper.getLaunchOptions(capabilities);   
         return new Promise((resolve, reject) => {
-            exec(launchOptions.join(` `), (err) => {
-                if (err) {
-                  reject(err);
+            (async () => {
+                try {
+                    const launchOptions = ChrominiumHelper.getLaunchOptions(capabilities);
+                    const execResult = await exec(launchOptions.join(` `));
+                    if (execResult.exitCode !== null && execResult.exitCode !== 0) {
+                        reject(execResult);
+                    }
+                    /** TODO : Instead of sleep, verify that debugger has become available */
+                    await SystemHelper.sleep(1000);
+                    const sessions = await ChrominiumHelper.getSessions(capabilities);
+                    resolve(sessions.values().next().value);
+                } catch (err) {
+                    reject(err);
                 }
-
-                /** TODO : Instead of sleep, verify that debugger has become available */
-                SystemHelper.sleep(1000).then(() => {
-                    ChrominiumHelper.getSessions(capabilities).then((sessions) => {
-                        resolve(sessions.values().next().value);
-                    }, (err) => {
-                        reject(err);
-                    });
-                });
-            });
+            })();
         });
     }
 
@@ -58,7 +59,7 @@ export class ChrominiumHelper {
             `data:,`,
             `--remote-debugging-port=${remoteDebuggingPort}`
         ];
-            
+
         const appUrl = capabilities.get(SupportedCapabilities.APP_URL) as string;
         /** TODO : Validation helper */
         if (appUrl !== undefined && appUrl.length > 0) {
@@ -67,7 +68,7 @@ export class ChrominiumHelper {
 
         let privateMode = capabilities.get(SupportedCapabilities.PRIVATE_MODE) as boolean;
         const headlessMode = capabilities.get(SupportedCapabilities.HEADLESS_MODE) as boolean;
-        
+
         /** TODO : Validation helper */
         if (headlessMode !== undefined && headlessMode) {
             launchOptions.push(`--headless`);
@@ -135,26 +136,28 @@ export class ChrominiumHelper {
      * `resolve` to {@link Map<string, KitaSession>} if sessions can be retrieved sucessfully.
      * `reject` with Errors
      */
-    static getSessions(capabilities: KitaCapabilities, pagesOnly = true): Promise<KitaSessionsCollection> {        
-        const debuggingUrl = capabilities.buildDebuggingUrl();
+    static getSessions(capabilities: KitaCapabilities, pagesOnly = true): Promise<KitaSessionsCollection> {
         return new Promise((resolve, reject) => {
-            const sessions: KitaSessionsCollection = new Map<string, KitaSession>();
-            axios.get(`${debuggingUrl}/json`).then((response) => {
-                for (let s = 0; response.data.length > s; s++) {
-                    const session = response.data[s];
-                    if (session.devtoolsFrontendUrl !== null) {
-                        if (pagesOnly && session.type === `page`) {
-                            sessions.set(session.id.toString(), new KitaSession(session));
-                        } else if (!pagesOnly) {
-                            sessions.set(session.id.toString(), new KitaSession(session));
+            (async () => {
+                try {
+                    const debuggingUrl = capabilities.buildDebuggingUrl();
+                    const sessions: KitaSessionsCollection = new Map<string, KitaSession>();
+                    const response = await axios.get(`${debuggingUrl}/json`);
+                    for (let s = 0; response.data.length > s; s++) {
+                        const session = response.data[s];
+                        if (session.devtoolsFrontendUrl !== null) {
+                            if (pagesOnly && session.type === `page`) {
+                                sessions.set(session.id.toString(), new KitaSession(session));
+                            } else if (!pagesOnly) {
+                                sessions.set(session.id.toString(), new KitaSession(session));
+                            }
                         }
-                    }        
+                    }
+                    resolve(sessions);
+                } catch (err) {
+                    reject(err);
                 }
-
-                resolve(sessions);
-            }).catch((err) => {
-                reject(err);
-            });
+            })();
         });
     }
 
@@ -167,33 +170,22 @@ export class ChrominiumHelper {
      * `reject` with {@link ErrorTypes.NavigationFailed}, if the result URL is different from `url`
      */
     static navigate(instance: KitaBrowser, url: string): Promise<KitaBrowser> {
-        /**
-         * TODO : A better way to create message JSON object
-         */
-         return new Promise((resolve, reject) => {
-            WebSocketHelper.sendMessage<DevTools.PayloadResult>(
-                instance.Session.Information.webSocketDebuggerUrl, 
-                {          
-                    id: 1,
-                    method: `Page.navigate`,
-                    params: {
-                        url: url
+        return new Promise((resolve, reject) => {
+            (async () => {
+                try {
+                    const result = await instance.CdpClient.Page.navigate({ url: url });
+                    if (result.frameId !== undefined) {
+                        resolve(instance);
                     }
-                }, 
-                `json`
-            ).then((response: DevTools.PayloadResult) => {
-                const result = response.result as DevTools.Page.Navigate.Result;
-                if (result.frameId !== undefined) {
-                    resolve(instance);
-                }
 
-                reject(new NavigationFailed(url));
-            }, (err) => {
-                reject(new NavigationFailed(url, err));
-            });
+                    reject(new NavigationFailed(url));
+                } catch (err) {
+                    reject(new NavigationFailed(url, err as string));
+                }
+            })();
         });
     }
-      
+
     /**
      * @static Eval scripts in {@link KitaSession} console window
      * @param {KitaBrowser} instance Chrominium based browser instance
@@ -203,46 +195,43 @@ export class ChrominiumHelper {
      * `resolve` to {@link Object} with of console result.
      * `reject` with {@link ErrorTypes.EvalFailed}
      */
-    static eval(instance: KitaBrowser, script: string, timeout = 30 * 1000): Promise<DevTools.Runtime.Common.RemoteObject> {
-        const expression = `
-            window.kitaExec = () => {   
-                setTimeout(() => {
-                    delete window.kitaExec
-                }, 0)
-
-                ${script}
-            }
-            window.kitaExec()
-        `;
-
-        /**
-         * TODO : A better way to create message JSON object
-         */
+    static eval(instance: KitaBrowser, script: string, timeout = 30 * 1000): Promise<Protocol.Runtime.EvaluateResponse> {
         return new Promise((resolve, reject) => {
-            WebSocketHelper.sendMessage<DevTools.PayloadResult>(
-                instance.Session.Information.webSocketDebuggerUrl, 
-                {          
-                    id: 1,
-                    method: `Runtime.evaluate`,
-                    params: {
+            (async () => {
+                try {
+                    const evalId = ToolsHelper.makeid(10);
+                    const expression = `
+                        window.${evalId} = () => {   
+                            setTimeout(() => {
+                                delete window.${evalId}
+                            }, 0)
+            
+                            ${script}
+                        }
+                        window.${evalId}()
+                    `;
+
+                    const result = await instance.CdpClient.Runtime.evaluate({
                         expression: expression,
-                        objectGroup: `kitaExecs`,
+                        objectGroup: evalId,
                         includeCommandLineAPI: true,
-                        doNotPauseOnExceptions: false,
+                        silent: false,
                         returnByValue: true,
-                        timeout: timeout
-                    }
-                }, 
-                `json`
-            ).then((response) => {
-                const result = response.result as DevTools.Runtime.Evaluate.Result;
-                resolve(result.result);
-            }, (err) => {
-                reject(err);
-            });
+                        userGesture: true,
+                        awaitPromise: true,
+                        timeout: timeout,
+                        disableBreaks: true,
+                        allowUnsafeEvalBlockedByCSP: true
+                    });
+
+                    resolve(result);
+                } catch (err) {
+                    reject(err);
+                }
+            })();
         });
     }
-      
+
     /**
      * @static Close {@link KitaSession}
      * @param {KitaBrowser} instance Chrominium based browser instance
@@ -251,53 +240,47 @@ export class ChrominiumHelper {
      * `reject` with {@link ErrorTypes.FailedToClose}
      */
     static close(instance: KitaBrowser): Promise<void> {
-        /**
-         * TODO : A better way to create message JSON object
-         */
         return new Promise((resolve, reject) => {
-            WebSocketHelper.sendMessage<DevTools.PayloadResult>(
-                instance.Session.Information.webSocketDebuggerUrl, 
-                {          
-                    id: 1,
-                    method: `Browser.close`,
-                }, 
-                `json`
-            ).then(() => {
-                resolve();
-            }, (err) => {
-                reject(err);
-            });
+            (async () => {
+                try {
+                    await instance.CdpClient.close();
+                    resolve();
+                } catch (err) {
+                    reject(err);
+                }
+            })();
         });
     }
-      
+
     /**
      * Capture screenshot from the {@link KitaSession} instance
      * @returns a {@link Promise}.
      * `resolve` to base64 encoded {@link string} of screenshot.
      * `reject` with {@link ErrorTypes.FailedToCapture}
      */
-    static captureScreenshot(instance: KitaBrowser, format = `jpeg`, quality = 100): Promise<string> {
-        /**
-         * TODO : A better way to create message JSON object
-         */
+    static captureScreenshot(instance: KitaBrowser, format: "jpeg" | "png" | "webp" | undefined = `jpeg`, quality = 100): Promise<string> {
         return new Promise((resolve, reject) => {
-            WebSocketHelper.sendMessage<DevTools.PayloadResult>(
-                instance.Session.Information.webSocketDebuggerUrl, 
-                {          
-                    id: 1,
-                    method: `Page.captureScreenshot`,
-                    params: {
-                        format: format,
-                        quality: quality
-                    }
-                }, 
-                `json`
-            ).then((response) => {
-                const result = response.result as DevTools.Page.CaptureScreenshot.Result;
-                resolve(result.data);
-            }, (err) => {
-                reject(err);
-            });
+            (async () => {
+                try {
+                    const result = await instance.CdpClient.Page.captureScreenshot({ format: format, quality: quality });
+                    resolve(result.data);
+                } catch (err) {
+                    reject(err);
+                }
+            })();
+        });
+    }
+
+    static enableNetwork(instance: KitaBrowser): Promise<void> {
+        return new Promise((resolve, reject) => {
+            (async () => {
+                try {
+                    const result = await instance.CdpClient.Network.enable();
+                    resolve(result);
+                } catch (err) {
+                    reject(err);
+                }
+            })();
         });
     }
 }
