@@ -9,7 +9,7 @@ export class WebSocketMessageFailed extends KitaError {
      * @param {string} error Error message
      * @param {string} append String appended to `error`
      */
-    constructor(error: string, append = `failed to send to WebSocket`) {
+    constructor(error: string | unknown, append = `failed to send to WebSocket`) {
         super(error, append);
     }
 }

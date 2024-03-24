@@ -32,14 +32,12 @@ export class KitaWebDriver {
     start(capabilities: KitaCapabilities): Promise<KitaWebDriver> {  
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    const instance = await WebDriverHelper.newKitaBrowserInstance(capabilities);
-                    this.browserInstance = instance;
-                    resolve(this);
-                } catch (err) {
-                    reject(err);
-                }
-            })();
+                const instance = await WebDriverHelper.newKitaBrowserInstance(capabilities);
+                this.browserInstance = instance;
+                resolve(this);
+            })().catch((err) => {
+                reject(err);
+            });
         });
     }
 }

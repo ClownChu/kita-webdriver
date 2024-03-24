@@ -9,7 +9,7 @@ export class InvalidBrowser extends KitaError {
      * @param {string} error Error message
      * @param {string} append String appended to `error`
      */
-    constructor(error: string, append = `is not a valid browser`) {
+    constructor(error: string | unknown, append = `is not a valid browser`) {
         super(error, append);
     }
 }

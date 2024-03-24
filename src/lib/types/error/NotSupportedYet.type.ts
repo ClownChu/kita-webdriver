@@ -9,7 +9,7 @@ export class NotSupportedYet extends KitaError {
      * @param {string} error Error message
      * @param {string} append String appended to `error`
      */
-    constructor(error: string, append = `is not supported yet`) {
+    constructor(error: string | unknown, append = `is not supported yet`) {
         super(error, append);
     }
 }

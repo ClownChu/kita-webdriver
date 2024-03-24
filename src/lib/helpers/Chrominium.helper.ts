@@ -11,6 +11,9 @@ import { NavigationFailed } from '../types/error/NavigationFailed.type';
 import { KitaSessionsCollection } from '../../types';
 import Protocol from 'devtools-protocol';
 import { ToolsHelper } from './Tools.helper';
+import { FailedToCaptureScreenshot } from 'lib/types/error/FailedToCaptureScreenshot.type';
+import { FailedToClose } from 'lib/types/error/FailedToClose.type';
+import { EvalFailed } from 'lib/types/error/EvalFailed.type';
 
 
 /**
@@ -27,20 +30,18 @@ export class ChrominiumHelper {
     static new(capabilities: KitaCapabilities): Promise<KitaSession> {
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    const launchOptions = ChrominiumHelper.getLaunchOptions(capabilities);
-                    const execResult = await exec(launchOptions.join(` `));
-                    if (execResult.exitCode !== null && execResult.exitCode !== 0) {
-                        reject(execResult);
-                    }
-                    /** TODO : Instead of sleep, verify that debugger has become available */
-                    await SystemHelper.sleep(1000);
-                    const sessions = await ChrominiumHelper.getSessions(capabilities);
-                    resolve(sessions.values().next().value);
-                } catch (err) {
-                    reject(err);
+                const launchOptions = ChrominiumHelper.getLaunchOptions(capabilities);
+                const execResult = await exec(launchOptions.join(` `));
+                if (execResult.exitCode !== null && execResult.exitCode !== 0) {
+                    reject(execResult);
                 }
-            })();
+                /** TODO : Instead of sleep, verify that debugger has become available */
+                await SystemHelper.sleep(1000);
+                const sessions = await ChrominiumHelper.getSessions(capabilities);
+                resolve(sessions.values().next().value);
+            })().catch((err) => {
+                reject(err);
+            });
         });
     }
 
@@ -139,25 +140,23 @@ export class ChrominiumHelper {
     static getSessions(capabilities: KitaCapabilities, pagesOnly = true): Promise<KitaSessionsCollection> {
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    const debuggingUrl = capabilities.buildDebuggingUrl();
-                    const sessions: KitaSessionsCollection = new Map<string, KitaSession>();
-                    const response = await axios.get(`${debuggingUrl}/json`);
-                    for (let s = 0; response.data.length > s; s++) {
-                        const session = response.data[s];
-                        if (session.devtoolsFrontendUrl !== null) {
-                            if (pagesOnly && session.type === `page`) {
-                                sessions.set(session.id.toString(), new KitaSession(session));
-                            } else if (!pagesOnly) {
-                                sessions.set(session.id.toString(), new KitaSession(session));
-                            }
+                const debuggingUrl = capabilities.buildDebuggingUrl();
+                const sessions: KitaSessionsCollection = new Map<string, KitaSession>();
+                const response = await axios.get(`${debuggingUrl}/json`);
+                for (let s = 0; response.data.length > s; s++) {
+                    const session = response.data[s];
+                    if (session.devtoolsFrontendUrl !== null) {
+                        if (pagesOnly && session.type === `page`) {
+                            sessions.set(session.id.toString(), new KitaSession(session));
+                        } else if (!pagesOnly) {
+                            sessions.set(session.id.toString(), new KitaSession(session));
                         }
                     }
-                    resolve(sessions);
-                } catch (err) {
-                    reject(err);
                 }
-            })();
+                resolve(sessions);
+            })().catch((err) => {
+                reject(err);
+            });
         });
     }
 
@@ -172,17 +171,15 @@ export class ChrominiumHelper {
     static navigate(instance: KitaBrowser, url: string): Promise<KitaBrowser> {
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    const result = await instance.CdpClient.Page.navigate({ url: url });
-                    if (result.frameId !== undefined) {
-                        resolve(instance);
-                    }
-
-                    reject(new NavigationFailed(url));
-                } catch (err) {
-                    reject(new NavigationFailed(url, err as string));
+                const result = await instance.CdpClient.Page.navigate({ url: url });
+                if (result.frameId !== undefined) {
+                    resolve(instance);
                 }
-            })();
+
+                reject(new NavigationFailed(url));
+            })().catch((err) => {
+                reject(new NavigationFailed(url, err as string));
+            });
         });
     }
 
@@ -198,37 +195,35 @@ export class ChrominiumHelper {
     static eval(instance: KitaBrowser, script: string, timeout = 30 * 1000): Promise<Protocol.Runtime.EvaluateResponse> {
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    const evalId = ToolsHelper.makeid(10);
-                    const expression = `
-                        window.${evalId} = () => {   
-                            setTimeout(() => {
-                                delete window.${evalId}
-                            }, 0)
-            
-                            ${script}
-                        }
-                        window.${evalId}()
-                    `;
+                const evalId = ToolsHelper.makeid(10);
+                const expression = `
+                    window.${evalId} = () => {   
+                        setTimeout(() => {
+                            delete window.${evalId}
+                        }, 0)
+        
+                        ${script}
+                    }
+                    window.${evalId}()
+                `;
 
-                    const result = await instance.CdpClient.Runtime.evaluate({
-                        expression: expression,
-                        objectGroup: evalId,
-                        includeCommandLineAPI: true,
-                        silent: false,
-                        returnByValue: true,
-                        userGesture: true,
-                        awaitPromise: true,
-                        timeout: timeout,
-                        disableBreaks: true,
-                        allowUnsafeEvalBlockedByCSP: true
-                    });
+                const result = await instance.CdpClient.Runtime.evaluate({
+                    expression: expression,
+                    objectGroup: evalId,
+                    includeCommandLineAPI: true,
+                    silent: false,
+                    returnByValue: true,
+                    userGesture: true,
+                    awaitPromise: true,
+                    timeout: timeout,
+                    disableBreaks: true,
+                    allowUnsafeEvalBlockedByCSP: true
+                });
 
-                    resolve(result);
-                } catch (err) {
-                    reject(err);
-                }
-            })();
+                resolve(result);
+            })().catch((err) => {
+                reject(new EvalFailed(err));
+            });
         });
     }
 
@@ -242,13 +237,11 @@ export class ChrominiumHelper {
     static close(instance: KitaBrowser): Promise<void> {
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    await instance.CdpClient.close();
-                    resolve();
-                } catch (err) {
-                    reject(err);
-                }
-            })();
+                await instance.CdpClient.close();
+                resolve();
+            })().catch((err) => {
+                reject(new FailedToClose(err));
+            });
         });
     }
 
@@ -261,26 +254,22 @@ export class ChrominiumHelper {
     static captureScreenshot(instance: KitaBrowser, format: `jpeg` | `png` | `webp` | undefined = `jpeg`, quality = 100): Promise<string> {
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    const result = await instance.CdpClient.Page.captureScreenshot({ format: format, quality: quality });
-                    resolve(result.data);
-                } catch (err) {
-                    reject(err);
-                }
-            })();
+                const result = await instance.CdpClient.Page.captureScreenshot({ format: format, quality: quality });
+                resolve(result.data);
+            })().catch((err) => {
+                reject(new FailedToCaptureScreenshot(err));
+            });
         });
     }
 
     static enableNetwork(instance: KitaBrowser): Promise<void> {
         return new Promise((resolve, reject) => {
             (async () => {
-                try {
-                    const result = await instance.CdpClient.Network.enable();
-                    resolve(result);
-                } catch (err) {
-                    reject(err);
-                }
-            })();
+                const result = await instance.CdpClient.Network.enable();
+                resolve(result);
+            })().catch((err) => {
+                reject(err);
+            });
         });
     }
 }

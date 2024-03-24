@@ -9,7 +9,7 @@ export class InvalidCapability extends KitaError {
      * @param {string} error Error message
      * @param {string} append String appended to `error`
      */
-    constructor(error: string, append = `is not a valid capability`) {
+    constructor(error: string | unknown, append = `is not a valid capability`) {
         super(error, append);
     }
 }

@@ -9,7 +9,7 @@ export class NavigationFailed extends KitaError {
      * @param {string} error Error message
      * @param {string} append String appended to `error`
      */
-    constructor(error: string, append = `could not be reached`) {
+    constructor(error: string | unknown, append = `could not be reached`) {
         super(error, append);
     }
 }
