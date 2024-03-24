@@ -97,7 +97,7 @@ export class ChrominiumBrowser extends KitaBrowser {
      * `resolve` to base64 encoded {@link string} of screenshot.
      * `reject` with {@link ErrorTypes.FailedToCapture}
      */
-    captureScreenshot(format: "jpeg" | "png" | "webp" | undefined = `jpeg`, quality = 100) {
+    captureScreenshot(format: `jpeg` | `png` | `webp` | undefined = `jpeg`, quality = 100) {
         return ChrominiumHelper.captureScreenshot(this, format, quality);
     }
 }

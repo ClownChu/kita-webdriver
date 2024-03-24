@@ -258,7 +258,7 @@ export class ChrominiumHelper {
      * `resolve` to base64 encoded {@link string} of screenshot.
      * `reject` with {@link ErrorTypes.FailedToCapture}
      */
-    static captureScreenshot(instance: KitaBrowser, format: "jpeg" | "png" | "webp" | undefined = `jpeg`, quality = 100): Promise<string> {
+    static captureScreenshot(instance: KitaBrowser, format: `jpeg` | `png` | `webp` | undefined = `jpeg`, quality = 100): Promise<string> {
         return new Promise((resolve, reject) => {
             (async () => {
                 try {

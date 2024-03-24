@@ -40,16 +40,16 @@ export abstract class KitaBrowser {
 
         const tryConnect = async () => {
             try {
-                const webSocketDebugger = self.Session.Information.webSocketDebuggerUrl.split('/')[2].split(':');
+                const webSocketDebugger = self.Session.Information.webSocketDebuggerUrl.split(`/`)[2].split(`:`);
                 self.CdpClient = await CDP({
                     host: webSocketDebugger.at(0),
                     port: webSocketDebugger.at(1)
                 } as CDP.Options);
 
-                console.log('Connected to Chrome DevTools Protocol');
+                console.log(`Connected to Chrome DevTools Protocol`);
 
-                self.CdpClient.on('disconnect', () => {
-                    console.log('Chrome DevTools Protocol disconnected');
+                self.CdpClient.on(`disconnect`, () => {
+                    console.log(`Chrome DevTools Protocol disconnected`);
                     self.isCdpConnected = false;
                 });
             } catch (error) {
@@ -63,11 +63,11 @@ export abstract class KitaBrowser {
 
                 if (connectionAttempt < maxRetries) {
                     console.log(
-                        'Failed to connect to Chrome DevTools Protocol, attempt: %d',
+                        `Failed to connect to Chrome DevTools Protocol, attempt: %d`,
                         connectionAttempt
                     );
 
-                    console.log('Reconnecting...');
+                    console.log(`Reconnecting...`);
 
                     // eslint-disable-next-line no-promise-executor-return
                     await new Promise((resolve) => setTimeout(resolve, connectionTimeout));

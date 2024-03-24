@@ -18,8 +18,7 @@
       "@src/*": ["src/*"]
     },
     "types": [
-      "node",
-      "ws"
+      "node"
     ],
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
